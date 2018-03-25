@@ -1,6 +1,6 @@
 {% include untranslated.html %}
 <div markdown="1" class="text-center container description">
-Merchants of all kinds have come to value the financial privacy that Monero brings. Below is a list of the merchants that we know of that currently accept Monero for their goods and services. If a company no longer accepts Monero or you would like your business to be listed, please [open a GitHub issue and let us know](https://github.com/monero-project/monero-site/issues).
+Toute sorte de commerçants ont fini par apprécier la confidentialité financière qu'apporte Monero. Vous trouverez ci-dessous une liste de commerçants que nous savons acceptant Monero comme moyen de paiement pour leurs biens ou leurs services. Si une société a cessé d'accepter Monero, ou bien si vous souhaitez y faire figurer votre affaire, merci [d'ouvrir un problème sur GitHub pour nous le faire savoir](https://github.com/monero-project/monero-site/issues).
 </div>
 <div class="merchants">
 {% for toplevel in site.data.merchants %}
@@ -23,5 +23,5 @@ Merchants of all kinds have come to value the financial privacy that Monero brin
 </div>
 
 <div markdown="1" class="text-center container description">
-*Please note: these links are being provided as a convenience and for informational purposes only; they do not constitute an endorsement by the Monero community of any products, services or opinions of the corporations or organizations or individuals listed. The Monero community bears no responsibility for the accuracy, legality, or content of these external sites. Contact the external site for answers to questions regarding its content. As always, caveat emptor ("buyer beware"); you are responsible for doing your own research. Always use judgement when making online purchases.*
+*Veuillez noter que les liens sont fournis à titre informatif uniquement. Aucun des produits, services, opinions des compagnies, sociétés et individus cités ne sont approuvés par la communauté en raison de leur présence dans cette liste. La communauté Monero n'assume aucune responsabilité quant à l'exactitude, la légalité ou le contenu de ces sites externes. Pour des questions concernant leurs contenus, contactez directement ces sites externes. Comme toujours, seul l'acheteur est responsable de son achat (acheteurs, méfiez-vous). C'est à vous de faire vos propres recherches. Toujours faire preuve de bon sens lorsque vous effectuez des achats en ligne.*
 </div>
