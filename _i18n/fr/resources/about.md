@@ -13,7 +13,7 @@
 
 Monero a été lancé en Avril 2014. Il s'agissait d'un lancement équitable et pré-annoncé du code de référence CryptoNote. Il n'y avait eu aucun pré-minage ou instaminage, et aucune partie de la récompense de bloc n'est reversé au développement. Vous trouverez la discussion d'origine de BitcoinTalk [ici](https://bitcointalk.org/index.php?topic=563821.0). Le fondateur, thankful_for_today, avait proposé quelques changements controversés avec lesquels la communauté n'était pas d'accord. Des retombées s'en suivirent, et l'équipe principale de Monero créa une variante du projet qui fut suivit par la communauté.
 
-Monero a progressé de maniètre importante depuis son lancement. La blockchain a été migrée vers une structure de base de donnée différente pour offrir plus d'efficacité et de flexibilité, la taille minimale des signatures de cercle a été difinie afin que toutes les transactions soient obligatoirement privées, et RingCT a été implémenté pour masquer les montants des transactions. La quasi-totalité des ces améliorations ont bénéficiées à la sécurité et à la confidentialité, ou bien en ont facilité l'usage. Monero continue son développement avec comme premier objectif la sécurité et la confidentialité, et comme second objectif l'accessibilité et l'efficacité.
+Monero a progressé de manière importante depuis son lancement. La blockchain a été migrée vers une structure de base de donnée différente pour offrir plus d'efficacité et de flexibilité, la taille minimale des signatures de cercle a été définie afin que toutes les transactions soient obligatoirement privées, et RingCT a été implémenté pour masquer les montants des transactions. La quasi-totalité des ces améliorations ont bénéficiées à la sécurité et à la confidentialité, ou bien en ont facilité l'usage. Monero continue son développement avec comme premier objectif la sécurité et la confidentialité, et comme second objectif l'accessibilité et l'efficacité.
 
 </div>
                     </div>
@@ -36,11 +36,11 @@ Monero est plus qu'une simple technologie. C'est aussi ce que la technologie rep
 
 ### Sécurité
 
-Les utilisateurs doivent puvoir faire confiance à Monero avec leurs transactions, sans risque d'erreur ou d'attaque. Monero donne la totalité de la récompense du bloc aux mineurs, qui sont les membres les plus critiques du réseau et qui fournissent cette sécurité. Les transactions sont sécurisées cryptographiquement en utilisant les outils de chiffrement les plus récents et les plus résistants disponibles.
+Les utilisateurs doivent pouvoir faire confiance à Monero avec leurs transactions, sans risque d'erreur ou d'attaque. Monero donne la totalité de la récompense du bloc aux mineurs, qui sont les membres les plus critiques du réseau et qui fournissent cette sécurité. Les transactions sont sécurisées cryptographiquement en utilisant les outils de chiffrement les plus récents et les plus résistants disponibles.
 
 ### Confidentialité
 
-Monero prend la confidentialité tèrs au sérieux. Monero doit pouvoir ptotéger ses utilisateur devant une cours de justice, ou dans les cas les plus extrèmes, de la peine de mort. Ce niveau de confidentialité doit être accéible à tous les utilisateurs, qu'ils disposent ou non de compétences techniques ou aient ou non la moindre idée du fonctionnement interne de Monero. Un utilisateur doit pouvoir être en total confiance avec Monero de sorte qu'il ne puisse se sentir contraint à modifier ses habitudes de paiement de peur que d'autres ne s'en rendent compte.
+Monero prend la confidentialité très au sérieux. Monero doit pouvoir protéger ses utilisateur devant une cours de justice, ou dans les cas les plus extrêmes, de la peine de mort. Ce niveau de confidentialité doit être accessible à tous les utilisateurs, qu'ils disposent ou non de compétences techniques ou aient ou non la moindre idée du fonctionnement interne de Monero. Un utilisateur doit pouvoir être en total confiance avec Monero de sorte qu'il ne puisse se sentir contraint à modifier ses habitudes de paiement de peur que d'autres ne s'en rendent compte.
 
 ### Décentralisation
 
