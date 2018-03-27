@@ -1,29 +1,28 @@
-{% include untranslated.html %}
-# CLI Wallet/Daemon Isolation with Qubes + Whonix
+# Isolation du Portefeuille CLI et du Démon avec Qubes et Whonix
 
-With [Qubes](https://qubes-os.org) + [Whonix](https://whonix.org) you can have a Monero wallet that is without networking and running on a virtually isolated system from the Monero daemon which has all of its traffic forced over [Tor](https://torproject.org).
+Avec [Qubes](https://qubes-os.org) et [Whonix](https://whonix.org) vous pouvez disposer d'un portefeuille Monero hors connexion fonctionnant sur un système virtuel isolé du démon Monero dont tout le trafic est forcé à passer à travers [Tor](https://torproject.org).
 
-Qubes gives the flexibility to easily create separate VMs for different purposes. First you will create a Whonix workstation for the wallet with no networking. Next, another Whonix workstation for the daemon which will use your Whonix gateway as it's NetVM. For communication between the wallet and daemon you can make use of Qubes [qrexec](https://www.qubes-os.org/doc/qrexec3/).
+Qubes permet de créer facilement des machines virtuelles pour différents besoins. Tout d'abord, vous crérez une station de travail Whonix sans réseau pour le portefeuille. Ensuite, une seconde station de travail Whonix pour le démon qui utilisera votre passerelle Whonix comme réseau de machine virtuelle. La communication dentre le portefeuille et le démon pourra être réalisée en utilisant Qubes [qrexec](https://www.qubes-os.org/doc/qrexec3/).
 
-This is safer than other approaches which route the wallets rpc over a Tor hidden service, or that use physical isolation but still have networking to connect to the daemon. In this way you don't need any network connection on the wallet, you preserve resources of the Tor network, and there is less latency.
+Il s'agit d'une approche plus sûre que d'autres solutions routant les appels de procédure distantes du portefeuille à travers un service Tor caché, ou utilisant une isolation physique mais disposant toujours du réseau pour le raccordement au démon. De cette manière vou sn'avez besoin d'aucune connectivité réseau sur le portefeuille, vous préserver les ressources du réseau Tor et vous minimisez la latence.
 
 
-## 1. [Create Whonix AppVMs](https://www.whonix.org/wiki/Qubes/Install): 
+## 1. [Créer une machine virtuelle applicative Whonix](https://www.whonix.org/wiki/Qubes/Install):
 
-+ Using a Whonix workstation template, create two workstations as follows:
++ En utilisant un modèle Whonix de station de travail, créez deux stations de travail comme suit :
 
-  - The first workstation will be used for your wallet, it will referred to as `monero-wallet-ws`. You will have `NetVM` set to `none`.
+  - La première station de travail sera utilisé pour le portefeuille, on s'y réfèrera en tant que `monero-wallet-ws`. Vous aurez `NetVM` définit à `none`.
 
-  - The second workstation will be for the `monerod` daemon, it will be referred to as `monerod-ws`. You will have `NetVM` set to the Whonix gateway `sys-whonix`.
+  - La seconde station de travail sera pour le démon `monerod`, on s'y réfèrera en tant que `monerod-ws`. Vous aurez `NetVM` définit sur la passerelle Whonix `sys-whonix`.
 
-## 2. In the AppVM `monerod-ws`: 
+## 2. Dans la machine virtuelle applicative `monerod-ws`:
 
-+ Download, verify, and install Monero software.
++ Télécharger, vérifier et installer le logiciel Monero.
 
 ```
 user@host:~$ curl -O "https://downloads.getmonero.org/cli/monero-linux-x64-v0.11.1.0.tar.bz2" -O "https://getmonero.org/downloads/hashes.txt"
 user@host:~$ gpg --recv-keys BDA6BD7042B721C467A9759D7455C5E3C0CDCEB9
-user@host:~$ gpg --verify hashes.txt 
+user@host:~$ gpg --verify hashes.txt
 gpg: Signature made Wed 01 Nov 2017 10:01:41 AM UTC
 gpg:                using RSA key 0x55432DF31CCD4FCD
 gpg: Good signature from "Riccardo Spagni <ric@spagni.net>" [unknown]
@@ -36,13 +35,13 @@ monero-linux-x64-v0.11.1.0.tar.bz2: OK
 user@host:~$ tar xf monero-linux-x64-v0.11.1.0.tar.bz2
 user@host:~$ sudo cp monero-v0.11.1.0/monerod /usr/local/bin/
 ```
-+ Create a `systemd` file.
++ Créez un fichier `systemd`.
 
 ```
 user@host:~$ sudo gedit /home/user/monerod.service
 ```
 
-Paste the following contents:
+Collez-y le contenu suivant :
 
 ```
 [Unit]
@@ -67,83 +66,83 @@ PrivateTmp=true
 WantedBy=multi-user.target
 ```
 
-+ Copy `monero-wallet-cli` executable to the `monero-wallet-ws` VM.
++ Copiez l'exécutable `monero-wallet-cli` dans la VM `monero-wallet-ws`.
 
 ```
 user@host:~$ qvm-copy-to-vm monero-wallet-ws monero-v0.11.1.0/monero-wallet-cli
 ```
 
-+ Make `monerod` daemon run on startup by editing the file `/rw/config/rc.local`.
++ Configurez le lancement du démon `monerod` au démarrage en éditant le fichier `/rw/config/rc.local`.
 
 ```
 user@host:~$ sudo gedit /rw/config/rc.local
 ```
 
-Add these lines to the bottom:
+Ajoutez les lignes suivantes à la fin du fichier :
 
 ```
 cp /home/user/monerod.service /lib/systemd/system/
 systemctl start monerod.service
 ```
 
-Make file executable.
+Rendez le fichier exécutable.
 
 ```
 user@host:~$ sudo chmod +x /rw/config/rc.local
 ```
 
-+ Create rpc action file.
++ Créez le fichier d'action d'appel de procédure distante.
 
 ```
 user@host:~$ sudo mkdir /rw/usrlocal/etc/qubes-rpc
 user@host:~$ sudo gedit /rw/usrlocal/etc/qubes-rpc/user.monerod
 ```
 
-Add this line:
+Ajoutez cette ligne :
 
 ```
 socat STDIO TCP:localhost:18081
 ```
 
-+ Shutdown `monerod-ws`.
++ Éteignez `monerod-ws`.
 
-## 3. In the AppVM `monero-wallet-ws`:
+## 3. Dans la machine virtuelle applicative `monero-wallet-ws`:
 
-+ Move the `monero-wallet-cli` executable.
++ Déplacez l'exécutable `monero-wallet-cli`.
 
 ```
 user@host:~$ sudo mv QubesIncoming/monerod-ws/monero-wallet-cli /usr/local/bin/
 ```
 
-+ Edit the file `/rw/config/rc.local`.
++ Éditez le fichier `/rw/config/rc.local`.
 
 ```
 user@host:~$ sudo gedit /rw/config/rc.local
 ```
 
-Add the following line to the bottom:
+Ajoutez-y la ligne suivante à la fin :
 
 ```
 socat TCP-LISTEN:18081,fork,bind=127.0.0.1 EXEC:"qrexec-client-vm monerod-ws user.monerod"
 ```
 
-Make file executable.
+Rendez le fichier exécutable.
 
 ```
 user@host:~$ sudo chmod +x /rw/config/rc.local
 ```
 
-+ Shutdown `monero-wallet-ws`.
++ Éteignez `monero-wallet-ws`.
 
-## 4. In `dom0`:
+## 4. Dans `dom0`:
 
-+ Create the file `/etc/qubes-rpc/policy/user.monerod`:
++ Créez le fichier `/etc/qubes-rpc/policy/user.monerod`:
 
 ```
 [user@dom0 ~]$ sudo nano /etc/qubes-rpc/policy/user.monerod
 ```
 
-Add the following line:
+Ajoutez la ligne suivante :
 
 ```
 monero-wallet-ws monerod-ws allow
