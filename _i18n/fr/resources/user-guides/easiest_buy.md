@@ -1,65 +1,64 @@
-{% include untranslated.html %}
-## How to obtain Monero
+## Comment obtenir Monero
 
-This is a guide to obtain your own Monero as of 20150919. This is perhaps the easiest way to purchase and hold Monero.
+Voici un guide pour obtenir vos propre Moneroj datant du 9 Septembre 2015. Il s'agit peut être de la façon la plus simple d'acheter et posséder des Moneroj.
 
-####Step 1: Buy Bitcoin
+####Étape 1 : Acheter du Bitcoin
 
-There are many ways to buy Bitcoin. Perhaps the easiest way is through circle.com. Once you have purchased some Bitcoin, you are ready to buy some Monero! Buying Bitcoin is straightforward. Please goto circle.com and just follow the instructions there.
+Il y a différentes façon d'acheter du Bitcoin. La plus simple est peut-être via circle.com. Une fois que vous avez acheté du Bitcoin, vous êtes prêt à acheter du Monero ! Acheter du Bitcoin se fait directement. Allez sur circle.com et suivez les instructions qui s'y trouvent.
 
-####Step 2: Set up a mymonero.com account
+####Étape 2 : Créer un compte mymonero.com
 
-MyMonero.com is an online wallet for Monero, maintained by Monero Core Developer Ricardo Spagni (fluffpony). It is the easiest wallet to use. Simply go to MyMonero.com and click on the "Create an Account" button. 
+MyMonero.com est un portefeuille en ligne, maintenu par Ricardo Spagni (fluffypony), l'un des développeurs principaux de Monero. C'est le portefeuille le plus siple à utiliser. Contentez-vous d'aller sur MyMonero.com et de cliquer sur le bouton "Create an Account".
 
 ![image1](https://github.com/luuul/monero-site/blob/master/knowledge-base/user-guides/png/easiest_way/01.png)
 
-After clicking the button, you will see your private key. This key is what gives you access to your funds. Never share this key with anyone!
+Après avoir cliqué sur le bouton, votre clef privée sera affichée. C'est cette clef qui vous donne accès à vos fonds. Ne la partagez avec quiconque !
 
-### WRITE DOWN THIS KEY IMMEDIATELY!
+### NOTEZ CETTE CLEF IMMEDIATEMENT !
 
 ![image2](https://github.com/luuul/monero-site/blob/master/knowledge-base/user-guides/png/easiest_way/02.png)
 
-Type in your private key in the box below, and click the button.
+Saisissez votre clef privé dans le champ en dessous et cliquez sur le bouton.
 
-On the next page, you will see your address.
+Sur la page suivante se trouve votre adresse.
 
 ![image3](https://github.com/luuul/monero-site/blob/master/knowledge-base/user-guides/png/easiest_way/03.png)
 
-Copy your address to the clipboard by highlighting the whole thing and hitting ctrl+c (or edit menu, copy), or clicking the little icon next to your address. Save your address somewhere. This is how others will send Monero to you, and what you will use to deposit Monero into your account!
+Copiez votre adresse dans le presse-papier en la sélectionnant en totalité puis en effectuant un Ctrl+C (ou menu éditer > Copier), ou cliquez sur la petite icône à coté de votre adresse. Sauvegardez votre adresse quelque part. C'est grâce à elle que d'autres pourront vous envoyer des Moneroj, et vous l'utiliserez pour déposer vos Moneroj sur votre compte !
 
-#### Step 3: Buy Monero and transfer the Monero to your new address
+#### Step 3: Acheter des Moneroj et les transférer sur votre nouvelle adresse
 
-Go to www.shapeshift.io . On the righthand side, of the screen, click icon under "Receive" to select Monero.
+Allez sur www.shapeshift.io . Sur la droite de l'écran, cliquer sur l'icône en dessous de "Receive" pour sélectionner Monero.
 
 ![image5](https://github.com/luuul/monero-site/blob/master/knowledge-base/user-guides/png/easiest_way/05.png)
 ![image6](https://github.com/luuul/monero-site/blob/master/knowledge-base/user-guides/png/easiest_way/06.png)
 
-Paste your address into the field under the Monero logo. Select the "agree to terms" button, then hit "Start"
+Collez votre adresse dans le champ sous le logo Monero. Sélectionnez le bouton "agree to terms", puis cliquez sur "Start"
 
 ![image7](https://github.com/luuul/monero-site/blob/master/knowledge-base/user-guides/png/easiest_way/07.png)
 
-In the new screen that pops up, copy the Deposit Address into your clipboard (select and hit ctrl+c or edit-copy)
+Sur la nouvelle fenêtre qui se présente, copiez l'adresse de dépôt dans votre presse-papier (sélectionnez-là et faites un Ctrl+C ou edition> copier)
 
 ![image8](https://github.com/luuul/monero-site/blob/master/knowledge-base/user-guides/png/easiest_way/08.png)
 
-Go back to your circle.com page, hit the "transfer" button, and paste the Bitcoin address into the field
-Enter the amount of Bitcoin you would like to spend.
+Retournez sur la page circle.com, cliquez sur le bouton "transfer" collez l'adresse Bitcoin dans le champ
+Entrez le montant en Bitcoin que vous souhaitez dépenser.
 
 ![image4](https://github.com/luuul/monero-site/blob/master/knowledge-base/user-guides/png/easiest_way/04.png)
 ![image9](https://github.com/luuul/monero-site/blob/master/knowledge-base/user-guides/png/easiest_way/09.png)
 
-You will get a text message verification code. Enter code and hit send.
+Une demande de confirmation va s'afficher. Entrez le code de validation et cliquez sur send.
 
 ![image10](https://github.com/luuul/monero-site/blob/master/knowledge-base/user-guides/png/easiest_way/10.png)
 
-You will see the shapeshift change to "awaiting exchange"
+Vous verrez shapeshift passer à "awaiting exchange"
 
 ![image11](https://github.com/luuul/monero-site/blob/master/knowledge-base/user-guides/png/easiest_way/11.png)
 
-Then it will change to COMPLETE!
+Puis cela passera à "COMPLETE!"
 
 ![image12](https://github.com/luuul/monero-site/blob/master/knowledge-base/user-guides/png/easiest_way/12.png)
 
-After a while you will see it in your Monero account
+Après un moment, vous le retrouverez sur votre compte Monero
 
 ![image13](https://github.com/luuul/monero-site/blob/master/knowledge-base/user-guides/png/easiest_way/13.png)
