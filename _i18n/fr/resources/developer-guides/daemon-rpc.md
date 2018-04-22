@@ -1,13 +1,12 @@
-{% include untranslated.html %}
 ## Introduction
 
-This is a list of the monerod daemon RPC calls, their inputs and outputs, and examples of each.
+Voici une liste des appels de procédures distantes (RPC) du démon, leurs entrées et sorties, et des exemples pour chacun d'eux.
 
-Many RPC calls use the daemon's JSON RPC interface while others use their own interfaces, as demonstrated below.
+De nombreux appels RPC utilisent l'interface JSON RPC du démon, alors que d'autres utilisent leurs propres interfaces, comme démontré plus bas.
 
-Note: "atomic units" refer to the smallest fraction of 1 XMR according to the monerod implementation. **1 XMR = 1e12 atomic units.**
+Remarque : "unité atomique" réfère à la plus petite fraction de 1 XMR selon l'implémentation monerod. **1 XMR = 1e12 unités atomiques**
 
-### [JSON RPC Methods](#json-rpc-methods):
+### [Méthodes JSON RPC](#methodes-json-rpc):
 
 * [getblockcount](#getblockcount)
 * [on_getblockhash](#on_getblockhash)
@@ -23,7 +22,7 @@ Note: "atomic units" refer to the smallest fraction of 1 XMR according to the mo
 * [setbans](#setbans)
 * [getbans](#getbans)
 
-### [Other RPC Methods](#other-daemon-rpc-calls):
+### [Autres Méthodes RPC](#autres-appels-rpc-du-demon):
 
 * [/getheight](#getheight)
 * [/gettransactions](#gettransactions)
@@ -35,9 +34,9 @@ Note: "atomic units" refer to the smallest fraction of 1 XMR according to the mo
 
 ---
 
-## JSON RPC Methods
+## Méthodes JSON RPC
 
-The majority of monerod RPC calls use the daemon's `json_rpc` interface to request various bits of information. These methods all follow a similar structure, for example:
+La majorité des appels RPC de monerod utilisent l'interface `json_rpc` du démon pour demander des bribes d'information. Ces méthodes suivent toutes une structure similaire, par exemple :
 
 ```
 IP=127.0.0.1
@@ -50,20 +49,20 @@ curl \
     -H 'Content-Type: application/json'
 ```
 
-Some methods include parameters, while others do not. Examples of each JSON RPC method follow.
+Certaines méthodes comportent des paramètres, alors que d'autres non. Ci-dessous des exemples de chaque méthode JSON RPC.
 
 ### **getblockcount**
 
-Look up how many blocks are in the longest chain known to the node.
+Recherche combien de blocs sont dans la plus longue chaîne connue du nœud.
 
-Inputs: *None*.
+Entrées : *Aucune*.
 
-Outputs:
+Sorties :
 
-* *count* - unsigned int; Number of blocks in longest chain seen by the node.
-* *status* - string; General RPC error code. "OK" means everything looks good.
+* *count* - entier non-signé; Nombre de blocs dans la chaîne la plus longue vue par le nœud.
+* *status* - chaîne; Code erreur général RPC. "OK" signifie que tout à l'air correct.
 
-Example:
+Exemple :
 
 ```
 $ curl -X POST http://127.0.0.1:18081/json_rpc -d '{"jsonrpc":"2.0","id":"0","method":"getblockcount"}' -H 'Content-Type: application/json'  
@@ -81,17 +80,17 @@ $ curl -X POST http://127.0.0.1:18081/json_rpc -d '{"jsonrpc":"2.0","id":"0","me
 
 ### **on_getblockhash**
 
-Look up a block's hash by its height.
+Recherche le hachage d'un bloc par sa hauteur.
 
-Inputs:
+Entrées :
 
-* block height (int array of length 1)
+* hauteur de bloc (tableau d'un seul entier)
 
-Outputs:
+Sorties :
 
-* block hash (string)
+* hachage de bloc (chaîne)
 
-Example:
+Exemple :
 
 ```
 $ curl -X POST http://127.0.0.1:18081/json_rpc -d '{"jsonrpc":"2.0","id":"0","method":"on_getblockhash","params":[912345]}' -H 'Content-Type: application/json'
@@ -106,21 +105,21 @@ $ curl -X POST http://127.0.0.1:18081/json_rpc -d '{"jsonrpc":"2.0","id":"0","me
 
 ### **getblocktemplate**
 
-Inputs:
+Entrées :
 
-* *wallet_address* - string; Address of wallet to receive coinbase transactions if block is successfully mined.
-* *reserve_size* - unsigned int; Reserve size.
+* *wallet_address* - chaîne; Adresse du portefeuille pour recevoir les transaction de la base de la pièce si le bloc est miné avec succès.
+* *reserve_size* - entier non-signé; Taille réservée.
 
-Outputs:
+Sorties :
 
-* *blocktemplate_blob* - string; Blob on which to try to mine a new block.
-* *difficulty* - unsigned int; Difficulty of next block.
-* *height* - unsigned int; Height on which to mine.
-* *prev_hash* - string; Hash of the most recent block on which to mine the next block.
-* *reserved_offset* - unsigned int; Reserved offset.
-* *status* - string; General RPC error code. "OK" means everything looks good.
+* *blocktemplate_blob* - chaîne; Forme floue sur laquelle tenter de miner un nouveau bloc.
+* *difficulty* - entier non-signé; Difficulté du prochain bloc.
+* *height* - entier non-signé; Hauteur à laquelle miner.
+* *prev_hash* - chaîne; Hachage du bloc le plus récent sur lequel miner le prochain bloc.
+* *reserved_offset* - entier non-signé; Décalage réservé.
+* *status* - chaîne; Code erreur général RPC. "OK" signifie que tout à l'air correct.
 
-Example:
+Exemple :
 
 ```
 $ curl -X POST http://127.0.0.1:18081/json_rpc -d '{"jsonrpc":"2.0","id":"0","method":"getblocktemplate","params":{"wallet_address":"44GBHzv6ZyQdJkjqZje6KLZ3xSyN1hBSFAnLP6EAqJtCRVzMzZmeXTC2AHKDS9aEDTRKmo6a6o9r9j86pYfhCWDkKjbtcns","reserve_size":60}' -H 'Content-Type: application/json'
@@ -142,40 +141,40 @@ $ curl -X POST http://127.0.0.1:18081/json_rpc -d '{"jsonrpc":"2.0","id":"0","me
 
 ### **submitblock**
 
-Submit a mined block to the network.
+Soumettre un bloc miné au réseau.
 
-Inputs:
+Entrées :
 
-* Block blob data - string
+* Données floues du bloc - chaîne
 
-Outputs:
+Sorties :
 
-* *status* - string; Block submit status.
+* *status* - chaîne; Statut de soumission du bloc.
 
 
 ### **getlastblockheader**
 
-Block header information for the most recent block is easily retrieved with this method. No inputs are needed.
+Les informations d'entête de bloc pour le bloc le plus récent sont facilement récupérables avec cette méthode. Aucune entrée n'est nécessaire.
 
-Inputs: *None*.
+Entrées : *Aucune*.
 
-Outputs:
+Sorties :
 
-* *block_header* - A structure containing block header information.
-  * *depth* -  unsigned int; The number of blocks succeeding this block on the blockchain. A larger number means an older block.
-  * *difficulty* - unsigned int; The strength of the Monero network based on mining power.
-  * *hash* - string; The hash of this block.
-  * *height* - unsigned int; The number of blocks preceding this block on the blockchain.
-  * *major_version* - unsigned int; The major version of the monero protocol at this block height.
-  * *minor_version* - unsigned int; The minor version of the monero protocol at this block height.
-  * *nonce* - unsigned int; a cryptographic random one-time number used in mining a Monero block.
-  * *orphan_status* - boolean; Usually `false`. If `true`, this block is not part of the longest chain.
-  * *prev_hash* - string; The hash of the block immediately preceding this block in the chain.
-  * *reward* - unsigned int; The amount of new atomic units generated in this block and rewarded to the miner. Note: 1 XMR = 1e12 atomic units.
-  * *timestamp* - unsigned int; The time the block was recorded into the blockchain.
-* *status* - string; General RPC error code. "OK" means everything looks good.
+* *block_header* - Une structure contenant les informations de l'entête de bloc :
+  * *depth* -  entier non-signé; Le nombre de bloc succédant à ce bloc sur la chaîne de blocs. Un nombre plus élevé signifie un bloc plus ancien.
+  * *difficulty* - entier non-signé; La force du réseau Monero basé sur la puissance d'extraction minière.
+  * *hash* - chaîne; Le hachage de ce bloc.
+  * *height* - entier non-signé; Le nombre de blocs précédant ce bloc sur la chaîne de blocs.
+  * *major_version* - entier non-signé; La verison majeure du protocol monero à cette hauteur de bloc.
+  * *minor_version* - entier non-signé; La version mineure du protocol monero à cette hauteur de bloc.
+  * *nonce* - entier non-signé; Un nombre cryptographique aléatoire utilisé dans l'extraction minière d'un bloc Monero.
+  * *orphan_status* - booléen; Habituellement `faux`. Si `vrai`, ce bloc ne fait pas parti de la chaîne la plus longue.
+  * *prev_hash* - chaîne; Le hachage du bloc précédant immédiatement ce bloc dans la chaîne.
+  * *reward* - entier non-signé; La quantité de nouvelles unités atomiques générées dans ce bloc et données en prime au mineur. Remarque : 1 XMR = 1e12 unités atomiques.
+  * *timestamp* - entier non-signé; L'heure à laquelle le bloc a été enregistré sur la chaîne de blocs.
+* *status* - chaîne; Code erreur général RPC. "OK" signifie que tout à l'air correct.
 
-In this example, the most recent block (990793 at the time) is returned:
+Dans cette exemple, le bloc le plus récent (990793 à ce moment là) est retourné :
 
 ```
 $ curl -X POST http://127.0.0.1:18081/json_rpc -d '{"jsonrpc":"2.0","id":"0","method":"getlastblockheader"}' -H 'Content-Type: application/json'
@@ -205,17 +204,17 @@ $ curl -X POST http://127.0.0.1:18081/json_rpc -d '{"jsonrpc":"2.0","id":"0","me
 
 ### **getblockheaderbyhash**
 
-Block header information can be retrieved using either a block's hash or height. This method includes a block's hash as an input parameter to retrieve basic information about the block.
+Les informations d'entête de bloc peuvent être renvoyées en utilisant soit un hachage, soit une hauteur de bloc. Cette méthode inclue un hachage de bloc comme paramètre d'entrée pour récupérer les informations basiques à propos du bloc.
 
-Inputs:
+Entrées :
 
-* *hash* - string; The block's sha256 hash.
+* *hash* - chaîne; Le hachage sha256 du bloc.
 
-Outputs:
+Sorties :
 
-* *block_header* - A structure containing block header information. See [getlastblockheader](#getlastblockheader).
+* *block_header* - Une structure contenant les informations d'entête de bloc. Voir [getlastblockheader](#getlastblockheader).
 
-In this example, block 912345 is looked up by its hash:
+Dans cet exemple, le bloc 912345 est recherché par son hachage :
 
 ```
 $ curl -X POST http://127.0.0.1:18081/json_rpc -d '{"jsonrpc":"2.0","id":"0","method":"getblockheaderbyhash","params":{"hash":"e22cf75f39ae720e8b71b3d120a5ac03f0db50bba6379e2850975b4859190bc6"}}' -H 'Content-Type: application/json'
@@ -245,17 +244,17 @@ $ curl -X POST http://127.0.0.1:18081/json_rpc -d '{"jsonrpc":"2.0","id":"0","me
 
 ### **getblockheaderbyheight**
 
-Similar to `getblockheaderbyhash` above, this method includes a block's height as an input parameter to retrieve basic information about the block.
+Comme pour `getblockheaderbyhash` ci-dessus, cette méthode inclue une hauteur de bloc comme paramètre d'entrée pour récupérer les informations basiques à propos du bloc.
 
-Inputs:
+Entrées :
 
-* *height* - unsigned int; The block's height.
+* *height* - entier non-signé; La hauteur de bloc.
 
-Outputs:
+Sorties :
 
-* *block_header* - A structure containing block header information. See [getlastblockheader](#getlastblockheader).
+* *block_header* - Une structure contenant les informations d'entête de bloc. Voir [getlastblockheader](#getlastblockheader).
 
-In this example, block 912345 is looked up by its height (notice that the returned information is the same as in the previous example):
+Dans cet exemple, le bloc 912345 est recherché par sa hauteur (remarquez que l'information renvoyée est la même que dans l'exemple précédent) :
 
 ```
 $ curl -X POST http://127.0.0.1:18081/json_rpc -d '{"jsonrpc":"2.0","id":"0","method":"getblockheaderbyheight","params":{"height":912345}}' -H 'Content-Type: application/json'
@@ -285,41 +284,41 @@ $ curl -X POST http://127.0.0.1:18081/json_rpc -d '{"jsonrpc":"2.0","id":"0","me
 
 ### **getblock**
 
-Full block information can be retrieved by either block height or hash, like with the above block header calls. For full block information, both lookups use the same method, but with different input parameters.
+Les informations complètes d'un bloc peuvent être récupérées soit par hauteur de bloc, soit par hachage, comme pour les appels d'entêtes de bloc ci-dessus. Pour les informations complètes d'un bloc, les deux recherches utilisent la meme méthode, mais avec des paramètres d'entrée différents.
 
-Inputs (pick one of the following):
+Entrées (choisir l'une de celle-ci) :
 
-* *height* - unsigned int; The block's height.
-* *hash* - string; The block's hash.
+* *height* - entier non-signé; La hauteur de bloc.
+* *hash* - chaîne; Le hachage du bloc.
 
-Outputs:
+Sorties :
 
-* *blob* - string; Hexadecimal blob of block information.
-* *block_header* - A structure containing block header information. See [getlastblockheader](#getlastblockheader).
-* *json* - json string; JSON formatted block details:
-  * *major_version* - Same as in block header.
-  * *minor_version* - Same as in block header.
-  * *timestamp* - Same as in block header.
-  * *prev_id* - Same as `prev_hash` in block header.
-  * *nonce* - Same as in block header.
-  * *miner_tx* - Miner transaction information
-    * *version* - Transaction version number.
-    * *unlock_time* - The block height when the coinbase transaction becomes spendable.
-    * *vin* - List of transaction inputs:
-      * *gen* - Miner txs are coinbase txs, or "gen".
-        * *height* - This block height, a.k.a. when the coinbase is generated.
-    * *vout* - List of transaction outputs. Each output contains:
-      * *amount* - The amount of the output, in atomic units.
+* *blob* - chaîne; Forme floue hexadécimale des informations du bloc.
+* *block_header* - Une structure contenant les informations d'entête de bloc. Voir [getlastblockheader](#getlastblockheader).
+* *json* - chaîne json; Détails du bloc au format JSON :
+  * *major_version* - Comme dans l'entête du bloc.
+  * *minor_version* - Comme dans l'entête du bloc.
+  * *timestamp* - Comme dans l'entête du bloc.
+  * *prev_id* - Comme `prev_hash` dans l'entête du bloc.
+  * *nonce* - Comme dans l'entête du bloc.
+  * *miner_tx* - Informations de la transaction du mineur :
+    * *version* - Numéro de version de la transaction.
+    * *unlock_time* - La hauteur de bloc à laquelle la base de la pièce pourra être dépensée.
+    * *vin* - Liste des entrées de la transaction :
+      * *gen* - Les transactions du mineur sont les transaction de la base de la pièce, ou "gen".
+        * *height* - Cette hauteur de bloc, c'est à dire lorsque la base de la pièce est générée.
+    * *vout* - Liste des sorties de la transaction outputs. Chaque sortie contient :
+      * *amount* - Le montant de la sortie, en unités atomiques.
       * *target* -
         * *key* -
-    * *extra* - Usually called the "transaction ID" but can be used to include any random 32 byte/64 character hex string.
-    * *signatures* - Contain signatures of tx signers. Coinbased txs do not have signatures.
-  * *tx_hashes* - List of hashes of non-coinbase transactions in the block. If there are no other transactions, this will be an empty list.
-* *status* - string; General RPC error code. "OK" means everything looks good.
+    * *extra* - Habituellement intitulé "ID de transaction" mais peut être utilisé pour insérer n'importe quelle chaîne aléatoire de 32 octets / 64 caractères hexadécimaux.
+    * *signatures* - Contient les signatures des signataires de la transaction. Les transactions de la base de la pièce n'ont pas de signatures.
+  * *tx_hashes* - Liste des hachages des transactions n'appartenant pas à la base de la pièce. S'il n'y a pas d'autre transactions, cette liste peut être vide.
+* *status* - chaîne; Code erreur général RPC. "OK" signifie que tout à l'air correct.
 
 **Look up by height:**
 
-In the following example, block 912345 is looked up by its height. Note that block 912345 does not have any non-coinbase transactions. (See the next example for a block with extra transactions):
+Dans l'exemple suivant, le bloc 912345 est recherché par sa hauteur. Notez que le bloc 912345 n'a pas de transactions n'appartenant pas à la base de la pièce. (regardez l'exemple d'après pour un bloc contenant des transactions supplémentaires) :
 
 ```
 $ curl -X POST http://127.0.0.1:18081/json_rpc -d '{"jsonrpc":"2.0","id":"0","method":"getblock","params":{"height":912345}}' -H 'Content-Type: application/json'
@@ -350,7 +349,7 @@ $ curl -X POST http://127.0.0.1:18081/json_rpc -d '{"jsonrpc":"2.0","id":"0","me
 
 **Look up by hash:**
 
-In the following example, block 993056 is looked up by its hash. Note that block 993056 has 3 non-coinbase transactions:
+Dans l'exemple suivant, le bloc 993056 est recherché par son hachage. Remarquez que que le bloc 993056 possède trois transactions n'appartenant pas à la base de la pièce :
 
 ```
 $ curl -X POST http://127.0.0.1:18081/json_rpc -d '{"jsonrpc":"2.0","id":"0","method":"getblock","params":{"hash":"510ee3c4e14330a7b96e883c323a60ebd1b5556ac1262d0bc03c24a3b785516f"}}' -H 'Content-Type: application/json'
@@ -383,31 +382,31 @@ $ curl -X POST http://127.0.0.1:18081/json_rpc -d '{"jsonrpc":"2.0","id":"0","me
 
 ### **get_connections**
 
-Retrieve information about incoming and outgoing connections to your node.
+Récupère des informations concernant les connexions entrantes et sortantes de votre nœud.
 
-Inputs: *None*.
+Entrées : *Aucune*.
 
-Outputs:
+Sorties :
 
-* *connections* - List of all connections and their info:
-  * *avg_download* - unsigned int; Average bytes of data downloaded by node.
-  * *avg_upload* - unsigned int; Average bytes of data uploaded by node.
-  * *current_download* - unsigned int; Current bytes downloaded by node.
-  * *current_upload* - unsigned int; Current bytes uploaded by node.
-  * *incoming* - boolean; Is the node getting information from your node?
-  * *ip* - string; The node's IP address.
-  * *live_time* - unsigned int
-  * *local_ip* - boolean
-  * *localhost* - boolean
-  * *peer_id* - string; The node's ID on the network.
-  * *port* - string; The port that the node is using to connect to the network.
-  * *recv_count* - unsigned int
-  * *recv_idle_time* - unsigned int
-  * *send_count* - unsigned int
-  * *send_idle_time* - unsigned int
-  * *state* - string
+* *connections* - Liste de toutes les connexions et leurs infos :
+  * *avg_download* - entier non-signé; Octets de données téléchargés en moyenne par le nœud.
+  * *avg_upload* - entier non-signé; Octets de données uploadés en moyenne par le nœud.
+  * *current_download* - entier non-signé; Octets actuellement téléchargés par le nœud.
+  * *current_upload* - entier non-signé; Octets actuellement uploadés par le nœud.
+  * *incoming* - booléen; Est-ce que le nœud récupère des informations depuis votre nœud ?
+  * *ip* - chaîne; L'adresse IP du nœud.
+  * *live_time* - entier non-signé
+  * *local_ip* - booléen
+  * *localhost* - booléen
+  * *peer_id* - chaîne; L'ID du nœud sur le réseau.
+  * *port* - chaîne; Le port utilisé par le nœud pour se connecter au réseau.
+  * *recv_count* - entier non-signé
+  * *recv_idle_time* - entier non-signé
+  * *send_count* - entier non-signé
+  * *send_idle_time* - entier non-signé
+  * *state* - chaîne
 
-Following is an example of `get_connections` and it's return:
+Voici un exemple de `get_connections` et de sa réponse :
 
 ```
 $ curl -X POST http://127.0.0.1:18081/json_rpc -d '{"jsonrpc":"2.0","id":"0","method":"get_connections"}' -H 'Content-Type: application/json'
@@ -444,28 +443,28 @@ $ curl -X POST http://127.0.0.1:18081/json_rpc -d '{"jsonrpc":"2.0","id":"0","me
 
 ### **get_info**
 
-Retrieve general information about the state of your node and the network.
+Récupère des informations générales concernant l'état de votre nœud et du réseau.
 
-Inputs: *None*.
+Entrées : *Aucune*.
 
-Outputs:
+Sorties :
 
-* *alt_blocks_count* - unsigned int; Number of alternative blocks to main chain.
-* *difficulty* - unsigned int; Network difficulty (analogous to the strength of the network)
-* *grey_peerlist_size* - unsigned int; Grey Peerlist Size
-* *height* - unsigned int; Current length of longest chain known to daemon.
-* *incoming_connections_count* - unsigned int; Number of peers connected to and pulling from your node.
-* *outgoing_connections_count* - unsigned int; Number of peers that you are connected to and getting information from.
-* *status* - string; General RPC error code. "OK" means everything looks good.
-* *target* - unsigned int; Current target for next proof of work.
-* *target_height* - unsigned int; The height of the next block in the chain.
-* *testnet* - boolean; States if the node is on the testnet (true) or mainnet (false).
-* *top_block_hash* - string; Hash of the highest block in the chain.
-* *tx_count* - unsigned int; Total number of non-coinbase transaction in the chain.
-* *tx_pool_size* - unsigned int; Number of transactions that have been broadcast but not included in a block.
-* *white_peerlist_size* - unsigned int; White Peerlist Size
+* *alt_blocks_count* - entier non-signé; Nombre de blocs alternatifs jusqu'à la chaîne principale.
+* *difficulty* - entier non-signé; Difficulté du réseau (similaire à la force du réseau).
+* *grey_peerlist_size* - entier non-signé; Taille de la liste de pairs gris (déconnectés)
+* *height* - entier non-signé; Longueur de la chaîne la plus longue connue par le démon.
+* *incoming_connections_count* - entier non-signé; Nombre de pairs connecté et tractés par votre nœud.
+* *outgoing_connections_count* - entier non-signé; Nombre de pairs auxquels vous êtes connectés et depuis lesquels vous récupérez des informations.
+* *status* - chaîne; Code erreur général RPC. "OK" signifie que tout à l'air correct.
+* *target* - entier non-signé; Cible actuelle pour la prochaine preuve de travail.
+* *target_height* - entier non-signé; La hauteur du prochain bloc dans la chaîne.
+* *testnet* - booléen; Indique si le noeud est sur testnet (vrai) ou sur mainnet (faux).
+* *top_block_hash* - chaîne; Hachage du plus haut bloc de la chaîne.
+* *tx_count* - entier non-signé; Quantité totale de transaction n'appartenant pas aux bases des pièces dans la chaîne.
+* *tx_pool_size* - entier non-signé; Nombre de transactions qui ont été diffusées mais pas insérées dans un bloc.
+* *white_peerlist_size* - entier non-signé; Taille de la liste de pairs blanc (connectés)
 
-Following is an example `get_info` call and its return:
+Ci-dessous un exemple d'appel `get_info` et de ses réponses :
 
 ```
 $ curl -X POST http://127.0.0.1:18081/json_rpc -d '{"jsonrpc":"2.0","id":"0","method":"get_info"}' -H 'Content-Type: application/json'
@@ -495,23 +494,23 @@ $ curl -X POST http://127.0.0.1:18081/json_rpc -d '{"jsonrpc":"2.0","id":"0","me
 
 ### **hard_fork_info**
 
-Look up information regarding hard fork voting and readiness.
+Rechercher des information concernant le vote et la disponibilité de la mise à jour du réseau.
 
-Inputs: *None*.
+Entrées : *Aucune*.
 
-Outputs:
+Sorties :
 
-* *earliest_height* - unsigned int; Block height at which hard fork would be enabled if voted in.
-* *enabled* - boolean; Tells if hard fork is enforced.
-* *state* - unsigned int; Current hard fork state: 0 (There is likely a hard fork), 1 (An update is needed to fork properly), or 2 (Everything looks good).
-* *status* - string; General RPC error code. "OK" means everything looks good.
-* *threshold* - unsigned int; Minimum percent of votes to trigger hard fork. Default is 80.
-* *version* - unsigned int; The major block version for the fork.
-* *votes* - unsigned int; Number of votes towards hard fork.
-* *voting* - unsigned int; Hard fork voting status.
-* *window* - unsigned int; Number of blocks over which current votes are cast. Default is 10080 blocks.
+* *earliest_height* - entier non-signé; Hauteur de bloc à laquelle la mise à jour du réseau sera activée si elle est votée.
+* *enabled* - booléen; Indique si la mise à jour du réseau est appliquée.
+* *state* - entier non-signé; Etat actuel de la mise à jour du réseau : 0 (Il est possible qu'il y ait une mise à jour du réseau), 1 (une mise à jour est nécessaire pour mettre à jour le réseau), ou 2 (tout va bien).
+* *status* - chaîne; Code erreur général RPC. "OK" signifie que tout à l'air correct.
+* *threshold* - entier non-signé; Pourcentage minimum de votes pour déclencher la mise à jour du réseau. 8à par défaut.
+* *version* - entier non-signé; la version majeure de bloc pour la mise à jour du réseau.
+* *votes* - entier non-signé; Nombre de votes en faveur de la mise à jour du réseau.
+* *voting* - entier non-signé; Statut du vote de la mise à jour du réseau.
+* *window* - entier non-signé; Nombre de blocs sur lesquels les votes actuels sont lancés. 10080 blocs par défaut.
 
-Example:
+Exemple :
 
 ```
 $ curl -X POST http://127.0.0.1:18081/json_rpc -d '{"jsonrpc":"2.0","id":"0","method":"hard_fork_info"}' -H 'Content-Type: application/json'
@@ -536,20 +535,20 @@ $ curl -X POST http://127.0.0.1:18081/json_rpc -d '{"jsonrpc":"2.0","id":"0","me
 
 ### **setbans**
 
-Ban another node by IP.
+Bannir l'IP d'un autre nœud.
 
-Inputs:
+Entrées :
 
-* *bans* - A list of nodes to ban:
-  * *ip* - unsigned int; IP address to ban, in Int format.
-  * *ban* - boolean; Set `true` to ban.
-  * *seconds* - unsigned int; Number of seconds to ban node.
+* *bans* - Une liste de nœuds à bannir :
+  * *ip* - entier non-signé; Adresse IP à bannir, au format entier.
+  * *ban* - booléen; Configurer à `vrai` pour bannir.
+  * *seconds* - entier non-signé; Duré du bannissement du nœud en secondes.
 
-Outputs:
+Sorties :
 
-* *status* - string; General RPC error code. "OK" means everything looks good.
+* *status* - chaîne; Code erreur général RPC. "OK" signifie que tout à l'air correct.
 
-Example:
+Exemple :
 
 ```
 $ curl -X POST http://127.0.0.1:18081/json_rpc -d '{"jsonrpc":"2.0","id":"0","method":"setbans","params":{"bans":[{"ip":838969536,"ban":true,"seconds":30}]}}' -H  'Content-Type: application/json'
@@ -566,16 +565,16 @@ $ curl -X POST http://127.0.0.1:18081/json_rpc -d '{"jsonrpc":"2.0","id":"0","me
 
 ### **getbans**
 
-Inputs: *None*.
+Entrées : *Aucune*.
 
-Outputs:
+Sorties :
 
-* *bans* - List of banned nodes:
-  * *ip* - unsigned int; Banned IP address, in Int format.
-  * *seconds* - unsigned int; Local Unix time that IP is banned until.
-* *status* - string; General RPC error code. "OK" means everything looks good.
+* *bans* - Liste des nœuds bannis :
+  * *ip* - entier non-signé; Adresse IP banni, au format entier.
+  * *seconds* - entier non-signé; Heure locale Unix jusqu'à laquelle l'IP est banni.
+* *status* - chaîne; Code erreur général RPC. "OK" signifie que tout à l'air correct.
 
-Example:
+Exemple :
 
 ```
 $ curl -X POST http://127.0.0.1:18081/json_rpc -d '{"jsonrpc":"2.0","id":"0","method":"getbans"}' -H 'Content-Type: application/json'
@@ -596,11 +595,11 @@ $ curl -X POST http://127.0.0.1:18081/json_rpc -d '{"jsonrpc":"2.0","id":"0","me
 
 ---
 
-## Other Daemon RPC Calls
+## Autres Appels RPC du Démon
 
-Not all daemon RPC calls use the JSON_RPC interface. This section gives examples of these calls.
+Tous les appels RPC du démon n'utilisent pas l'interface JSON_RPC. Cette rubrique fournit des exemples de ces appels.
 
-The data structure for these calls is different than the JSON RPC calls. Whereas the JSON RPC methods were called using the `/json_rpc` extension and specifying a method, these methods are called at their own extensions. For example:
+La structure des données de ces appels est différente de celle des appels JSON RPC. Alors que les méthodes JSON RPC étaient appelées en utilisant l'extension `/json_rpc` et en spécifiant une méthode, ces méthodes sont appelées par leurs propres extensions. Par exemple :
 
     IP=127.0.0.1
     PORT=18081
@@ -611,18 +610,18 @@ The data structure for these calls is different than the JSON RPC calls. Whereas
 		-d $PARAMS \
 		-H 'Content-Type: application/json'
 
-Note: It is recommended to use JSON RPC where such alternatives exist, rather than the following methods. For example, the recommended way to get a node's height is via the JSON RPC methods [get_info](#getinfo) or [getlastblockheader](#getlastblockheader), rather than [getheight](#getheight) below.
+Remarque : Il est recommandé d'utiliser JSON RPC lorsque cette alternative existe, plutôt que les méthodes suivantes. Par exemple, la manière recommandée d'obtenir la hauteur d'un nœud est via les méthodes JSON RPC [get_info](#getinfo) ou [getlastblockheader](#getlastblockheader), plutôt que [getheight](#getheight) ci-dessous.
 
 
 ### **/getheight**
 
-Get the node's current height.
+Obtenir la hauteur actuelle d'un nœud.
 
-Inputs: *None*.
+Entrées : *Aucune*.
 
-Outputs:
+Sorties :
 
-* *height* - unsigned int; Current length of longest chain known to daemon.
+* *height* - entier non-signé; Longueur actuelle, ou plus longue chaîne connue du démon.
 
 ```
 $ curl -X POST http://127.0.0.1:18081/getheight -H 'Content-Type: application/json'
@@ -636,32 +635,32 @@ $ curl -X POST http://127.0.0.1:18081/getheight -H 'Content-Type: application/js
 
 ### **/gettransactions**
 
-Look up one or more transactions by hash.
+Recherche une transaction par hachage.
 
-Inputs:
+Entrées :
 
-* *txs_hashes* - string list; List of transaction hashes to look up.
-* *decode_as_json* - boolean; Optional. If set `true`, the returned transaction information will be decoded rather than binary.
+* *txs_hashes* - liste de chaîne; Liste des hachages de transaction à rechercher.
+* *decode_as_json* - booléen; Optionnel. Si positionné à `vrai`, les informations de transaction renvoyées seront décodées plutôt qu'en binaire.
 
-Outputs:
+Sorties :
 
-* *status* - General RPC error code. "OK" means everything looks good.
-* *txs_as_hex* - string; Full transaction information as a hex string.
-* *txs_as_json* - json string; (Optional - returned if set in inputs.) List of transaction info:
-  * *version* - Transaction version
-  * *unlock_time* - If not 0, this tells when a transaction output is spendable.
-  * *vin* - List of inputs into transaction:
-    * *key* - The public key of the previous output spent in this transaction.
-      * *amount* - The amount of the input, in atomic units.
-      * *key_offsets* - A list of integer offets to the input.
-      * *k_image* - The key image for the given input
-  * *vout* - List of outputs from transaction:
-    * *amount* - Amount of transaction output, in atomic units.
-    * *target* - Output destination information:
-      * *key* - The stealth public key of the receiver. Whoever owns the private key associated with this key controls this transaction output.
-  * *extra* - Usually called the "payment ID" but can be used to include any random 32 bytes.
-  * *signatures* - List of signatures used in ring signature to hide the true origin of the transaction.
-Example 1: Return transaction information in binary format.
+* *status* - Code erreur général RPC. "OK" signifie que tout à l'air correct.
+* *txs_as_hex* - chaîne; Informations complètes de la transaction en chaîne hexadécimale.
+* *txs_as_json* - chaîne json; (Optionnelle - renvoyée si positionné en entrée.) Liste des informations de transaction :
+  * *version* - Version de la transaction
+  * *unlock_time* - Si différent de 0, cela indique que la sortie de la transaction peut être dépensée.
+  * *vin* - Liste d'entrées dans la transaction :
+    * *key* - La clef publique de la précédente sortie dépensée dans cette transaction.
+      * *amount* - Le montant de l'entrée, en unités atomiques.
+      * *key_offsets* - Une liste d'entiers de décalages de l'entrée.
+      * *k_image* - L'image clef pour l'entrée donnée
+  * *vout* - Liste de sorties dans la transaction :
+    * *amount* - Le montant de la sortie de la transaction, en unités atomiques.
+    * *target* - Information de destination de la sortie :
+      * *key* - La clef publique furtive du récipiendaire. Quiconque possède la clef privée associée à cette clef contrôle la sortie de la transaction.
+  * *extra* - Habituellement appelé "l'ID de Paiement" mais peut être utilisé pour insérer n'importe quels 32 bits aléatoires.
+  * *signatures* - Liste de signatures utilisées dans la signature de cercle pour masquer l'origine réelle de la transaction.
+Exemple 1 : Renvoyer les informations de transaction au format binaire.
 
 ```
 $ curl -X POST http://127.0.0.1:18081/gettransactions -d '{"txs_hashes":["d6e48158472848e6687173a91ae6eebfa3e1d778e65252ee99d7515d63090408"]}' -H 'Content-Type: application/json'
@@ -673,7 +672,7 @@ $ curl -X POST http://127.0.0.1:18081/gettransactions -d '{"txs_hashes":["d6e481
 ```
 
 
-Example 2: Decode returned transaction information in JSON format. Note: the "vout" list has been truncated in the displayed return for space considerations.
+Exemple 2 : Decoder les informations de transaction renvoyées au format JSON. Remarque : la liste de "vout" a été tronquée dans la réponse affichée pour des raisons d'espace.
 
 ```
 $ curl -X POST http://127.0.0.1:18081/gettransactions -d '{"txs_hashes":["d6e48158472848e6687173a91ae6eebfa3e1d778e65252ee99d7515d63090408"],"decode_as_json":true}' -H 'Content-Type: application/json'
@@ -688,18 +687,18 @@ $ curl -X POST http://127.0.0.1:18081/gettransactions -d '{"txs_hashes":["d6e481
 
 ### **/is_key_image_spent**
 
-Check if outputs have been spent using the key image associated with the output.
+Vérifie si les sorties ont été dépensées en utilisant l'image clef associée à cette sortie.
 
-Inputs:
+Entrées :
 
-* *key_images* - string list; List of key image hex strings to check.
+* *key_images* - liste de chaîne; Liste de chaîne hexadécimale d'image clef à vérifier.
 
-Outputs:
+Sorties :
 
-* *spent_status* - unsigned int list; List of statuses for each image checked. Statuses are follows: 0 = unspent, 1 = spent in blockchain, 2 = spent in transaction pool
-* *status* - string; General RPC error code. "OK" means everything looks good.
+* *spent_status* - liste d'entiers non-signés; Liste de statuts pour chaque image vérifiée. Les statuts sont les suivants : 0 = non dépensé, 1 = dépensé dans la chaine de bloc, 2 = dépensé dans la cagnotte de transaction
+* *status* - chaîne; Code erreur général RPC. "OK" signifie que tout à l'air correct.
 
-Example:
+Exemple :
 
 ```
 $ curl -X POST http://127.0.0.1:18081/is_key_image_spent -d '{"key_images":["8d1bd8181bf7d857bdb281e0153d84cd55a3fcaa57c3e570f4a49f935850b5e3","7319134bfc50668251f5b899c66b005805ee255c136f0e1cecbb0f3a912e09d4"]}' -H 'Content-Type: application/json'
@@ -713,29 +712,29 @@ $ curl -X POST http://127.0.0.1:18081/is_key_image_spent -d '{"key_images":["8d1
 
 ### **/sendrawtransaction**
 
-Broadcast a raw transaction to the network.
+Transmet une transaction brut sur le réseau.
 
-Inputs:
+Entrées :
 
-* *tx_as_hex* - string; Full transaction information as hexidecimal string.
-* *do_not_relay* - boolean; Stop relaying transaction to other nodes (default is `false` now; in versions 0.11.1 it was `true`).
+* *tx_as_hex* - chaîne; Information de transaction complète sous forme de chaîne hexadécimale.
+* *do_not_relay* - booléen; Arrête de relayer les transactions aux autres nœuds (par défaut à `faux` maintenant; était à `vrai` en version 0.11.1).
 
-Outputs:
+Sorties :
 
-* *status* - string; General RPC error code. "OK" means everything looks good. Any other value means that something went wrong.
-* *double_spend* - boolean;  Transaction is a double spend (`true`) or not (`false`).
-* *fee_too_low* - boolean; Fee is too low (`true`) or OK (`false`).
-* *invalid_input* - boolean; Input is invalid (`true`) or valid (`false`).
-* *invalid_output* - boolean; Output is invalid (`true`) or valid (`false`).
-* *low_mixin* - boolean; Mixin count is too low (`true`) or OK (`false`).
-* *not_rct* - boolean; Transaction is not a ring transaction (`true`) or a ring transaction (`false`).
-* *not_relayed* - boolean; Transaction was not relayed (`true`) or relayed (`false`).
-* *overspend* - boolean; Transaction uses more money than available (`true`) or not (`false`).
-* *reason* - string; Additional information. Currently empty or "Not relayed" if transaction was accepted but not relayed.
-* *too_big* - boolean; Transaction size is too big (`true`) or OK (`false`).
+* *status* - chaîne; Code erreur général RPC. "OK" signifie que tout à l'air correct. Any other value means that something went wrong.
+* *double_spend* - booléen; La transaction est une double dépense (`vrai`) ou non (`faux`).
+* *fee_too_low* - booléen; Les frais sont trop faibles (`vrai`) ou OK (`faux`).
+* *invalid_input* - booléen; L'entrée est invalide (`vrai`) ou valide (`faux`).
+* *invalid_output* - booléen; La sortie est invalide (`vrai`) ou valide (`faux`).
+* *low_mixin* - booléen; Nombre de Mixin trop faible (`vrai`) ou OK (`faux`).
+* *not_rct* - booléen; La transaction n'est pas une transaction de cercle (`vrai`) ou est une transaction de cercle (`false`).
+* *not_relayed* - booléen; La transaction n'a pas été relayée (`vrai`) ou a été relayée (`faux`).
+* *overspend* - booléen; La transaction utilise plus d'argent que disponible (`vrai`) ou non (`faux`).
+* *reason* - chaîne; Information complémentaire. Actuellement vide ou "non relayé" si la transaction a été acceptée mais pas relayée.
+* *too_big* - booléen; La taille de la transaction est trop grande (`vrai`) ou OK (`faux`).
 
 
-Example (No return information included here.):
+Exemple (Pas d'information incluses en retour ici.) :
 
 
 ```
@@ -745,42 +744,42 @@ $ curl -X POST http://127.0.0.1:18081/sendrawtransaction -d '{"tx_as_hex":"de6a3
 
 ### **/get_transaction_pool**
 
-Show information about valid transactions seen by the node but not yet mined into a block, as well as spent key image information in the node's memory.
+Affiche les informations concernant les transactions valides vue par le nœud mais pas encore minées dans un bloc, de même que les informations d'image de clef de dépense en mémoire dans le nœud.
 
-Inputs: *None*.
+Entrées : *Aucune*.
 
-Outputs:
+Sorties :
 
-* *spent_key_images* - List of spent output key images:
-  * *id_hash* - string; Key image ID hash.
-  * *txs_hashes* - string list; Key image transaction hashes.
-* *status* - string; General RPC error code. "OK" means everything looks good.
-* *transactions* - List of transactions in the mempool that have not been included in a block:
-  * *blob_size* - unsigned int; The size of the full transaction blob.
-  * *fee* - unsigned int; The amount of the mining fee included in the transaction, in atomic units.
-  * *id_hash* - string; The transaction ID hash.
-  * *kept_by_block* - boolean; We do not accept transactions that timed out before, unless set `true`.
-  * *last_failed_height* - unsigned int; If the transaction has previously timed out, this tells at what height that occured.
-  * *last_failed_id_hash* - string; Like the previous, this tells the previous transaction ID hash.
-  * *max_used_block_height* - unsigned int; Tells the height of the most recent block with an output used in this transaction.
-  * *max_used_block_hash* - string; Tells the hash of the most recent block with an output used in this transaction.
-  * *receive_time* - unsigned int; The Unix time that the transaction was first seen on the network by the node.
-  * *tx_json* - json string; JSON structure of all information in the transaction:
-    * *version* - Transaction version
-    * *unlock_time* - If not 0, this tells when a transaction output is spendable.
-    * *vin* - List of inputs into transaction:
-      * *key* - The public key of the previous output spent in this transaction.
-        * *amount* - The amount of the input, in atomic units.
-        * *key_offsets* - A list of integer offets to the input.
-        * *k_image* - The key image for the given input
-    * *vout* - List of outputs from transaction:
-      * *amount* - Amount of transaction output, in atomic units.
-      * *target* - Output destination information:
-        * *key* - The stealth public key of the receiver. Whoever owns the private key associated with this key controls this transaction output.
-    * *extra* - Usually called the "transaction ID" but can be used to include any random 32 bytes.
-    * *signatures* - List of signatures used in ring signature to hide the true origin of the transaction.
+* *spent_key_images* - Liste d'images de clefs de dépense :
+  * *id_hash* - chaîne; Hachage de l'ID d'image de clef.
+  * *txs_hashes* - lsite de chaîne; hachages d'image de clef de transaction.
+* *status* - chaîne; Code erreur général RPC. "OK" signifie que tout à l'air correct.
+* *transactions* - Liste de transaction dans pool mémoire qui n'ont pas été incluses dans un bloc :
+  * *blob_size* - entier non-signé; La taille de la forme floue de la transaction au complet.
+  * *fee* - entier non-signé; Le montant de frais d'extraction minière inclus dans la transaction, en unités atomiques.
+  * *id_hash* - chaîne; Le hachage de l'ID de transaction.
+  * *kept_by_block* - booléen; Nous n'acceptons pas de transactions qui se terminent dans le passé, sauf si définit à `vrai`.
+  * *last_failed_height* - entier non-signé; Si la transaction a précédemment expiré, ceci indique à quelle hauteur cela c'est produit.
+  * *last_failed_id_hash* - chaîne; Comme les précédent, ceci indique le hachage de l'ID de transaction précédent.
+  * *max_used_block_height* - entier non-signé; Indique la hauteur du bloc le plus récent ayant une sortie utilisé dans cette transaction.
+  * *max_used_block_hash* - chaîne; Indique le hachage du bloc le plus récent ayant une sortie utilisé dans cette transaction.
+  * *receive_time* - entier non-signé; L'heure Unix à laquelle la transaction a été vue pour la première fois sur le réseau par le nœud.
+  * *tx_json* - chaîne json; Structure JSON de toutes les informations dans la transaction :
+    * *version* - Versioon de la transaction
+    * *unlock_time* - Si différent de 0, cela indique quand la sortie d'une transaction peut être dépensée.
+    * *vin* - Liste d'entrées dans la transaction :
+      * *key* - La clef publique de la précédente sortie dépensée dans cette transaction.
+        * *amount* - Le montant de l'entrée The amount of the input, in atomic units.
+        * *key_offsets* - Une liste d'entiers de décalage depuis l'entrée.
+        * *k_image* - L'image de clef pour l'entrée donnée.
+    * *vout* - Liste de sorties de la transaction :
+      * *amount* -  Montant de la sortie de la transaction en unités atomiques.
+      * *target* - Information de destination de la sortie :
+        * *key* - Adresse furtive du récipiendaire. Quiconque possède la clef privée associée à cette clef contrôle la sortie de cette transaction.
+    * *extra* - Habituellement appelé "l'ID de Paiement" mais peut être utilisé pour insérer n'importe quels 32 bits aléatoires.
+    * *signatures* - Liste de signatures utilisées dans la signature de cercle pour masquer l'origine réelle de la transaction.
 
-Example (Note: Some lists in the returned information have been truncated for display reasons):
+Exemple (Remarque : Certaines listes dans les informations renvoyées ont été tronquées pour des raisons d'espace) :
 
 ```
 $ curl -X POST http://127.0.0.1:18081/get_transaction_pool -H 'Content-Type: application/json'
@@ -814,15 +813,15 @@ $ curl -X POST http://127.0.0.1:18081/get_transaction_pool -H 'Content-Type: app
 
 ### **/stop_daemon**
 
-Send a command to the daemon to safely disconnect and shut down.
+Envoie une commande au démon pour le déconnecter proprement et l'arrêter.
 
-Inputs: *None*.
+Entrées : *Aucune*.
 
-Outputs:
+Sorties :
 
-* *status* - string; General RPC error code. "OK" means everything looks good.
+* *status* - chaîne; Code erreur général RPC. "OK" signifie que tout à l'air correct.
 
-Example:
+Exemple :
 
 ```
 $ curl -X POST http://127.0.0.1:18081/stop_daemon -H 'Content-Type: application/json'
